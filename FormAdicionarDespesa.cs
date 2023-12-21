@@ -33,26 +33,41 @@ namespace TrabalhoDois
 
         private void btnSalvarDespesa_Click(object sender, EventArgs e)
         {
+            decimal valorDespesa; 
             Despesa novaDespesa;
-            decimal valorDespesa;
-
-            // TODO : Validar se so tem numeros
+            
             if (!decimal.TryParse(this.tbValorDespesa.Text, out valorDespesa))
             {
-                MessageBox.Show("Introduz um valor valido");
+
+                this.errorProviderForm.SetError(this.tbValorDespesa, "Introduz um valor valido");
+                
                 return;
             }
 
-            var categoriaDespesa = this.tbCategoriaDespesa.SelectedItem;
-            
-            var dataDespesa = DateTime.ParseExact(this.tbDataDespesa.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            var categoriaDespesa = (String)this.tbCategoriaDespesa.SelectedItem;            
+            var dataDespesa = DateTime.ParseExact(this.tbDataDespesa.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);                        
+            var nomeDespesa = this.tbNomeDespesa.Text;
+
+            if (string.IsNullOrEmpty(nomeDespesa))
+            {
+                this.errorProviderForm.SetError(this.tbNomeDespesa, "Campo obrigatório");
+                return;
+            }
+
+            if ( categoriaDespesa.ToUpper() == "FIXA")
+            {
+                novaDespesa = new DespesaFixa(nomeDespesa, valorDespesa, dataDespesa);
+            }
+            else
+            {
+                novaDespesa = new DespesaVariavel(nomeDespesa, valorDespesa, dataDespesa);
+            }
 
             MessageBox.Show($"Salvar despesa. A opção escolhita na combo é: {categoriaDespesa}  | o valor despesa é: {valorDespesa}  | a data despesa é: {dataDespesa} ");
 
-            novaDespesa = new DespesaFixa("despesa e tal", valorDespesa, dataDespesa);
             Program.gestorDespesas.AdicionarDespesa(novaDespesa);
-
-
+            
             formPrincipal.AtualizarDadosEstatisticos();
 
         }

@@ -45,12 +45,11 @@ partial class FormPrincipal
         this.status.Text = "Aplicação iniciada.";
         
         // Formulário Principal
-
         // TODO: Isto precisa de ser alterado para estar dentro de areas
         // Labels
         this.lblGastoTotal = FormControlGenerator.CreateMyLabel(12,50, "Gasto Total: Nao disponivel");
         this.lblGastoMesAtual = FormControlGenerator.CreateMyLabel(12, 80, "Gasto do Mês Atual: Nao disponivel");
-        this.lblDespesaMaiorValor = FormControlGenerator.CreateMyLabel(12, 110, 300, 25, "Despesa de Maior Valor: Nao disponivel");
+        this.lblDespesaMaiorValor = FormControlGenerator.CreateMyLabel(12, 110, 800, 25, "Despesa de Maior Valor: Nao disponivel");
 
         // Botoes
         this.btnAdicionarDespesa = FormControlGenerator.CreateMyButton(12, 150, 250, 50, "Adicionar Despesa");
@@ -60,8 +59,9 @@ partial class FormPrincipal
         this.btnMostrarTabela.Click += new System.EventHandler(this.btnMostrarTabela_Click);
 
         // Isto foi passado para o for de listar despesas
-        //this.btnRemoverDespesa = FormControlGenerator.CreateMyButton(12, 190, 250, 50, "Remover Despesa");
-        //this.btnRemoverDespesa.Click += new System.EventHandler(this.btnRemoverDespesa_Click);
+        this.btnRemoverDespesa = FormControlGenerator.CreateMyButton(12, 250, 250, 50, "Remover Despesa");
+        this.btnRemoverDespesa.Enabled = false;
+        this.btnRemoverDespesa.Click += new System.EventHandler(this.btnRemoverDespesa_Click);
 
         // Adicionar controles ao formulário principal
         this.Controls.Add(this.lblGastoTotal);
@@ -69,8 +69,7 @@ partial class FormPrincipal
         this.Controls.Add(this.lblDespesaMaiorValor);
         this.Controls.Add(this.btnAdicionarDespesa);        
         this.Controls.Add(this.btnMostrarTabela);
-        // Este foi movido para o de listar despesar
-        //this.Controls.Add(this.btnRemoverDespesa);
+        this.Controls.Add(this.btnRemoverDespesa);
     }
 
     private MenuStrip CreateMyMenuStrip()
@@ -125,7 +124,6 @@ partial class FormPrincipal
         return statusLabel;
     }
 
-
     private Label lblGastoTotal;
     private Label lblGastoMesAtual;
     private Label lblDespesaMaiorValor;
@@ -133,8 +131,7 @@ partial class FormPrincipal
     private Button btnMostrarTabela;    
     private ToolStripStatusLabel status;
     private MenuStrip menu;
-
-    //private Button btnRemoverDespesa;
+    private Button btnRemoverDespesa;
 
     #endregion
 }

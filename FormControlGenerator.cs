@@ -34,8 +34,11 @@ namespace TrabalhoDois
             newLabel.Size = new Size(width, height);
             newLabel.Location = new Point(posX, posY);
             newLabel.Text = text;
-            newLabel.TextAlign = ContentAlignment.MiddleCenter; // Center text alignment
+            newLabel.TextAlign = ContentAlignment.MiddleLeft; // Center text alignment
             newLabel.AutoSize = false;
+
+            newLabel.BackColor = Color.FromArgb(255, 255, 255);
+
 
             return newLabel;
         }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -24,20 +25,16 @@ namespace TrabalhoDois
 
         private void FormMostrarTabela_Load(object sender, EventArgs e)
         {
-            // this.Location = new Point(0, 0);
-
             ReloadTable();
         }
         public void ReloadTable()
-        {
-
-            
+        {   
             this.dataGridView.Rows.Clear();
             foreach (var despesa in Program.gestorDespesas.ObterTodasDespesas())
             {
                 //MessageBox.Show("Reload table" + despesa.Nome);
 
-                this.dataGridView.Rows.Add(despesa.Nome, despesa.CalculaDespesa(), despesa.DataDespesa);
+                this.dataGridView.Rows.Add(despesa.Nome, despesa.CalculaDespesa(), despesa.DataDespesa, despesa.Tipo);
             }
         }
 
@@ -46,7 +43,7 @@ namespace TrabalhoDois
             formPrincipal.AtualizarDadosEstatisticos();
 
             // Fechar o form
-            this.Close();
+            this.Hide();
         }
 
         private void btnRemoverDespesa_Click(object sender, EventArgs e)
@@ -67,8 +64,40 @@ namespace TrabalhoDois
             }
 
             formPrincipal.AtualizarDadosEstatisticos();
-
         }
 
-    }
+        internal Boolean RemoverDespesa()
+        {
+            bool result = false;    
+
+            if (this.dataGridView.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = this.dataGridView.SelectedRows[0];
+                int selectedIndex = selectedRow.Index;
+                Program.gestorDespesas.RemoverDespesa(selectedIndex);
+                this.ReloadTable();
+            }
+            else
+            {
+                MessageBox.Show("No row selected.");
+            }
+
+            formPrincipal.AtualizarDadosEstatisticos();
+
+            return result;
+        }
+
+        // Esta é a propriedade do form que fazemos over
+        protected override void OnDeactivate(EventArgs e)
+        {
+            this.formPrincipal.DesactivarControlosDeRemover();
+        }
+
+
+        protected override void OnActivated(EventArgs e)
+        {
+            this.formPrincipal.ActivarControlosDeRemover();
+            this.ReloadTable();
+        }
+    }    
 }

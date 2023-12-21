@@ -9,8 +9,7 @@ namespace TrabalhoDois
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
-        
+        private System.ComponentModel.IContainer components = null;        
 
         /// <summary>
         /// Clean up any resources being used.
@@ -35,25 +34,32 @@ namespace TrabalhoDois
         {
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(800, 500);
             this.Text = "FormMostrarTabela";
             this.Load += FormMostrarTabela_Load;
+            //this.OnDeactivate = new System.EventHandler( FormMostrarTabela_Load) ;
+            this.ControlBox = false; // Hide control box (minimize, maximize, close buttons)
+            this.MaximizeBox = false; // Disable maximize button
+            this.MinimizeBox = false; // Disable minimize button
 
             // Botoes
-            this.btnFecharForm = FormControlGenerator.CreateMyButton(12, 150, 250, 50, "Cancelar");
+            this.btnFecharForm = FormControlGenerator.CreateMyButton(110, 440, 100, 50, "Fechar Janela");
             this.btnFecharForm.Click += new System.EventHandler(this.btnFecharForm_Click);
 
-            this.btnRemoverDespesa = FormControlGenerator.CreateMyButton(12, 200, 250, 50, "Apagar Despesa");
+            this.btnRemoverDespesa = FormControlGenerator.CreateMyButton(10, 440, 100, 50, "Apagar Despesa");
             this.btnRemoverDespesa.Click += new System.EventHandler(this.btnRemoverDespesa_Click);
-
 
             this.Controls.Add(this.btnRemoverDespesa);
             this.Controls.Add(this.btnFecharForm);
 
-
             setupDataGrid();
-            // Controlos
-            this.Controls.Add(this.dataGridView);
+            Panel panelNome = new Panel();  
+            panelNome.BackColor = System.Drawing.Color.LightGray;
+            panelNome.Location = new Point(0, 0);
+            panelNome.Size = new Size(800, 400);
+
+            panelNome.Controls.Add(this.dataGridView);            
+            this.Controls.Add(panelNome);
 
         }
 
@@ -78,9 +84,7 @@ namespace TrabalhoDois
             headerStyle.BackColor = Color.FromArgb(52, 152, 219); // Blue background color
             headerStyle.ForeColor = Color.White; // White text color
             headerStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold); // Bold font style
-            this.dataGridView.ColumnHeadersDefaultCellStyle = headerStyle;
-
-            
+            this.dataGridView.ColumnHeadersDefaultCellStyle = headerStyle;            
         }
 
         private void InitializeDatagrid()
@@ -96,19 +100,12 @@ namespace TrabalhoDois
             column3.HeaderText = "Data";
             column3.Name = "Data";
 
-            //column1.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255); // Blue background color
-            //column2.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255); // Blue background color
-            //column3.DefaultCellStyle.BackColor = Color.FromArgb(255, 255, 255); // Blue background color
-            //column1.DefaultCellStyle.ForeColor = Color.Green; // Green text color
-            //column2.DefaultCellStyle.ForeColor = Color.Green; // Green text color
-            //column3.DefaultCellStyle.ForeColor = Color.Green; // Green text color
-            //column1.DefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold); // Bold font style
-            //column2.DefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold); // Bold font style
-            //column3.DefaultCellStyle.Font = new Font("Segoe UI", 12, FontStyle.Bold); // Bold font style
-
+            DataGridViewTextBoxColumn column4 = new DataGridViewTextBoxColumn();
+            column4.HeaderText = "Tipo";
+            column4.Name = "Tipo";
 
             // Add columns to DataGridView
-            dataGridView.Columns.AddRange(new DataGridViewColumn[] { column1, column2, column3 });
+            dataGridView.Columns.AddRange(new DataGridViewColumn[] { column1, column2, column3, column4 });
         }
 
         private Button btnRemoverDespesa, btnFecharForm;

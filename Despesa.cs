@@ -1,4 +1,10 @@
-﻿namespace TrabalhoDois
+﻿using Microsoft.Win32;
+using System.IO;
+using System.IO.Packaging;
+using System.Runtime.InteropServices.Marshalling;
+using System.Text.Json;
+
+namespace TrabalhoDois
 {
     // Classe abstrata para representar despesas
     [Serializable]
@@ -132,6 +138,62 @@
         public List<Despesa> ObterTodasDespesas()
         {
             return despesas;
+        }
+
+        public bool SaveBackUp()
+        {
+            bool saveResult = false;
+
+            try
+            {
+                SaveJsonToFile(despesas, "db", "Registo.json.backup");
+                saveResult = true;
+            }
+            catch (Exception)
+            {
+                // Isto não precisa de ser feito pq foi inicializado a falso
+                // Geralmente qd não inicializado o valor por defeito era false, agora dá erro assim inicializei
+                saveResult = false;
+            }            
+            return saveResult;
+        }
+
+
+        private bool SaveJsonToFile(List<Despesa> listaDespesas, String folder, String fileName)
+        {
+            Boolean result = false;
+            String path = "";
+            string local = AppDomain.CurrentDomain.BaseDirectory;
+            
+            try
+            {
+                path = Path.Combine(local, folder);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                path = Path.Combine(path, fileName);
+                if (!File.Exists(path))
+                {
+                    File.Create(path).Close();
+                    File.WriteAllText(path, JsonSerializer.Serialize(listaDespesas));
+                    MessageBox.Show("O ficheiro não existia e foi criado");
+
+                }
+                else
+                {
+                    File.WriteAllText(path, JsonSerializer.Serialize(listaDespesas));
+                }
+
+                result = true;
+            }
+            catch (Exception)
+            {
+                // Aqui já não asignei! :)
+            }
+
+            return result;
         }
     }
 
