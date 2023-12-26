@@ -52,7 +52,8 @@ namespace TrabalhoDois
             newComboBox.Size = new System.Drawing.Size(150, 25);
 
             newComboBox.Items.AddRange(comboOptions);
-
+            // Se isto nao for colocado vais permitir escrever
+            newComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             //// Add items to the ComboBox
             //foreach (var comboOption in comboOptions)
             //{

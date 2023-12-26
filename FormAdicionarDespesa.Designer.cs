@@ -1,5 +1,7 @@
 ﻿
 
+using static System.Windows.Forms.DataFormats;
+
 namespace TrabalhoDois
 {
     partial class FormAdicionarDespesa
@@ -58,7 +60,9 @@ namespace TrabalhoDois
             this.tbDataDespesa.Location = new System.Drawing.Point(colDoisPosition, rowSpace * 2);
             this.tbDataDespesa.Size = new System.Drawing.Size(150, 25);
             // Configurar o formato da data
-            this.tbDataDespesa.Format = DateTimePickerFormat.Short;
+            //this.tbDataDespesa.Format = DateTimePickerFormat.Short;
+            this.tbDataDespesa.Format = DateTimePickerFormat.Custom;
+            this.tbDataDespesa.CustomFormat = "dd-MM-yyyy";
 
             this.lblCategoriaDespesa = FormControlGenerator.CreateMyLabel(colUmPosition, rowSpace * 3, "Categoria da despesa");
             this.tbCategoriaDespesa = FormControlGenerator.CreateMyComboBox(colDoisPosition, rowSpace * 3, new string[] { "Variavel", "Fixa" });

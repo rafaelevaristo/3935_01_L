@@ -76,10 +76,6 @@ namespace TrabalhoDois
             this.dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.ScrollBars = ScrollBars.Both;
 
-            //this.dataGridView.BackgroundColor = Color.FromArgb(45, 62, 80); // Dark grid background color
-            //this.dataGridView.ForeColor = Color.White; // Set grid text color
-            //this.dataGridView.Font = new Font("Segoe UI", 12, FontStyle.Regular); // Regular font style
-
             DataGridViewCellStyle headerStyle = new DataGridViewCellStyle();
             headerStyle.BackColor = Color.FromArgb(52, 152, 219); // Blue background color
             headerStyle.ForeColor = Color.White; // White text color

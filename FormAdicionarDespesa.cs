@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -45,8 +46,21 @@ namespace TrabalhoDois
             }
 
 
-            var categoriaDespesa = (String)this.tbCategoriaDespesa.SelectedItem;            
-            var dataDespesa = DateTime.ParseExact(this.tbDataDespesa.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);                        
+            var categoriaDespesa = (String)this.tbCategoriaDespesa.SelectedItem;
+            
+            DateTime dataDespesa;
+
+            try
+            {
+                //dataDespesa = DateTime.ParseExact(this.tbDataDespesa.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                dataDespesa = this.tbDataDespesa.Value;
+            }
+            catch (Exception)
+            {
+                this.errorProviderForm.SetError(this.tbDataDespesa, $"Verifique o formato: {this.tbDataDespesa.Text}");
+                return;
+            }
+                        
             var nomeDespesa = this.tbNomeDespesa.Text;
 
             if (string.IsNullOrEmpty(nomeDespesa))
